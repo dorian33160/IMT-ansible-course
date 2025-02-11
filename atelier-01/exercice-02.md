@@ -6,6 +6,12 @@ Nous commençons par ajouter le répository officiel de ansible :
 $ sudo apt-add-repository ppa:ansible/ansible
 ```
 
+Il faut alors mettre à jour le cache :
+
+```
+$ sudo apt update
+```
+
 Nous installons ensuite le paquet :  
 
 ```

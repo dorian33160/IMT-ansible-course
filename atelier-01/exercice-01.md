@@ -8,19 +8,19 @@ $ sudo apt update
 Nous cherchons ensuite le nom du paquet :  
 
 ```
-sudo apt-cache search --names-only ansible
+$ sudo apt-cache search --names-only ansible
 ```
 
 Nous installons le paquet :  
 
 ```
-sudo apt install ansible
+$ sudo apt install ansible
 ```
 
 Pour finir, nous vérifions la version de ansible :  
 
 ```
-ansible --version
+$ ansible --version
 ```
 
 On obtient :  

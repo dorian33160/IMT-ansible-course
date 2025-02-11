@@ -4,13 +4,13 @@ Comme précisé, il n'est pas nécéssaire d'installer python sur Rocky. Nous
 pouvons directement passer à la suite et créer l'environnemnet Venv :  
 
 ```
-python3 -m venv ~/.venv/ansible
+$ python3 -m venv ~/.venv/ansible
 ```
 
 Nous pouvons ensuite lancer le Venv :  
 
 ```
-source ~/.venv/ansible/bin/activate
+$ source ~/.venv/ansible/bin/activate
 ```
 Nous mettons alors à jour pip :  
 
