@@ -4,25 +4,30 @@ Pour commencer nous écrivons le playbook chrony.yaml :
 
 ```
 ---
-- name: Configure NTP with Chrony on Rocky Linux
+- name: Configure NTP with chrony
   hosts: redhat
   become: yes
   tasks:
     - name: Install chrony package
-      dnf:
+      ansible.builtin.yum:
         name: chrony
         state: present
 
-    - name: Display default chrony.conf content
-      command: cat /etc/chrony.conf
-      register: chrony_conf_content
+    - name: Ensure chronyd service is enabled and started
+      ansible.builtin.service:
+        name: chronyd
+        enabled: yes
+        state: started
 
-    - name: Show default chrony.conf
-      debug:
-        msg: "{{ chrony_conf_content.stdout_lines }}"
+    - name: Backup original chrony configuration
+      ansible.builtin.copy:
+        src: /etc/chrony.conf
+        dest: /etc/chrony.conf.bak
+        remote_src: yes
+        backup: yes
 
-    - name: Deploy custom chrony.conf
-      copy:
+    - name: Configure chrony
+      ansible.builtin.copy:
         content: |
           server 0.fr.pool.ntp.org iburst
           server 1.fr.pool.ntp.org iburst
@@ -37,11 +42,10 @@ Pour commencer nous écrivons le playbook chrony.yaml :
         group: root
         mode: '0644'
 
-    - name: Restart and enable Chrony service
-      service:
+    - name: Restart chronyd service to apply new configuration
+      ansible.builtin.service:
         name: chronyd
         state: restarted
-        enabled: yes
 ```
 
 Nous pouvons vérifier la syntax du playbook avec la commande suivante :
