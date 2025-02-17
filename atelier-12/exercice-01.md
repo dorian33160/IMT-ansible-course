@@ -41,11 +41,14 @@ Pour commencer nous écrivons le playbook chrony.yaml :
         owner: root
         group: root
         mode: '0644'
+      notify: Restart chronyd
 
-    - name: Restart chronyd service to apply new configuration
+  handlers:
+    - name: Restart chronyd
       ansible.builtin.service:
         name: chronyd
         state: restarted
+
 ```
 
 Nous pouvons vérifier la syntax du playbook avec la commande suivante :
@@ -62,44 +65,42 @@ Nous obtenons des warnings mais pas d'erreurs. Nous pouvons alors éxecuter le
 playbook :
 
 ```
-$ ansible-playbook chrony.yaml
-
 PLAY [Configure NTP with chrony] ****************************************************************************************************************************************************************************************************************************
 
 TASK [Gathering Facts] **************************************************************************************************************************************************************************************************************************************
 ok: [target03]
-ok: [target01]
 ok: [target02]
+ok: [target01]
 
 TASK [Install chrony package] *******************************************************************************************************************************************************************************************************************************
 ok: [target02]
+ok: [target03]
 ok: [target01]
-changed: [target03]
 
 TASK [Ensure chronyd service is enabled and started] ********************************************************************************************************************************************************************************************************
-changed: [target02]
-changed: [target01]
-changed: [target03]
+ok: [target01]
+ok: [target03]
+ok: [target02]
 
 TASK [Backup original chrony configuration] *****************************************************************************************************************************************************************************************************************
-changed: [target01]
-changed: [target02]
-changed: [target03]
+ok: [target02]
+ok: [target03]
+ok: [target01]
 
 TASK [Configure chrony] *************************************************************************************************************************************************************************************************************************************
 changed: [target03]
-changed: [target02]
 changed: [target01]
+changed: [target02]
 
-TASK [Restart chronyd service to apply new configuration] ***************************************************************************************************************************************************************************************************
+RUNNING HANDLER [Restart chronyd] ***************************************************************************************************************************************************************************************************************************
 changed: [target01]
 changed: [target02]
 changed: [target03]
 
 PLAY RECAP **************************************************************************************************************************************************************************************************************************************************
-target01                   : ok=6    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-target02                   : ok=6    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-target03                   : ok=6    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+target01                   : ok=6    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+target02                   : ok=6    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+target03                   : ok=6    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
 Afin de vérifier l'idempotence, on relance le playbook :
@@ -110,37 +111,35 @@ $ ansible-playbook chrony.yaml
 PLAY [Configure NTP with chrony] ****************************************************************************************************************************************************************************************************************************
 
 TASK [Gathering Facts] **************************************************************************************************************************************************************************************************************************************
-ok: [target03]
 ok: [target01]
 ok: [target02]
+ok: [target03]
 
 TASK [Install chrony package] *******************************************************************************************************************************************************************************************************************************
 ok: [target03]
-ok: [target01]
 ok: [target02]
+ok: [target01]
 
 TASK [Ensure chronyd service is enabled and started] ********************************************************************************************************************************************************************************************************
 ok: [target03]
-ok: [target01]
 ok: [target02]
+ok: [target01]
 
 TASK [Backup original chrony configuration] *****************************************************************************************************************************************************************************************************************
 changed: [target01]
-changed: [target02]
 changed: [target03]
+changed: [target02]
 
 TASK [Configure chrony] *************************************************************************************************************************************************************************************************************************************
-ok: [target01]
-ok: [target02]
 ok: [target03]
-
-TASK [Restart chronyd service to apply new configuration] ***************************************************************************************************************************************************************************************************
-changed: [target01]
-changed: [target02]
-changed: [target03]
+ok: [target02]
+ok: [target01]
 
 PLAY RECAP **************************************************************************************************************************************************************************************************************************************************
-target01                   : ok=6    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-target02                   : ok=6    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-target03                   : ok=6    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+target01                   : ok=5    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+target02                   : ok=5    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+target03                   : ok=5    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
+
+Nous constatons qu'il n'y a pas eu de redémarrage du service car nous n'avons
+pas modifié la configuration entre temps 
