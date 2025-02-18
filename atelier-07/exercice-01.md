@@ -4,7 +4,7 @@
 
 Pour commencer, nous installons les paquets sur chaque machine :
 
-```
+```console
 $ ansible all -m package -a "name=tree,git,nmap state=present" --become
 
 debian | CHANGED => {
@@ -300,7 +300,7 @@ rocky | SUCCESS => {
 
 Nous pouvons maintenant supprimer les paquets :
 
-```
+```console
 $ ansible all -m package -a "name=tree,git,nmap state=absent" --become
 
 rocky | CHANGED => {
@@ -456,7 +456,7 @@ rocky | SUCCESS => {
 
 Nous copions le fichier hosts du controleur sur les targets :
 
-```
+```console
 $ ansible all -m copy -a "src=/etc/fstab dest=/tmp/test3.txt mode=0644" --become
 
 debian | CHANGED => {
@@ -549,7 +549,7 @@ suse | SUCCESS => {
 
 Nous vérifions que le fichier est bien présent :
 
-```
+```console
 $ ansible all -m command -a "ls -l /tmp/test3.txt"
 
 debian | CHANGED | rc=0 >>
@@ -562,7 +562,7 @@ rocky | CHANGED | rc=0 >>
 
 Nous pouvons maintenant supprimer le fichier :
 
-```
+```console
 $ ansible all -m file -a "path=/tmp/test3.txt state=absent" --become
 
 debian | CHANGED => {
@@ -602,7 +602,7 @@ rocky | SUCCESS => {
 
 Nous vérifions que le fichier a bien été supprimé :
 
-```
+```console
 $ ansible all -m command -a "ls -l /tmp/test3.txt"
 
 suse | FAILED | rc=2 >>
@@ -615,7 +615,7 @@ ls: cannot access '/tmp/test3.txt': No such file or directorynon-zero return cod
 
 Pour terminer, nous affichons l'espace utilisé par la partition principale :
 
-```
+```console
 $ ansible all -m command -a "df -h /"
 
 debian | CHANGED | rc=0 >>

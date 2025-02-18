@@ -2,7 +2,7 @@
 
 Nous commençons par ajouter les entrées dans le fichier hosts :
 
-```
+```console
 $ vim /etc/hosts
 
 127.0.0.1      localhost.localdomain  localhost
@@ -14,14 +14,14 @@ $ vim /etc/hosts
 
 Nous générons la paire de clé sur le noeud de control :
 
-```
+```console
 $ ssh-keygen
 ```
 
 Nous copions ensuite la clé publique sur les targets pour se connecter sans
 mots de passe :  
 
-```
+```console
 $ ssh-copy-id vagrant@target01
 $ ssh-copy-id vagrant@target02
 $ ssh-copy-id vagrant@target03
@@ -29,7 +29,7 @@ $ ssh-copy-id vagrant@target03
 
 Nous testons la connexion :
 
-```
+```console
 $ ssh vagrant@target01
 $ ssh vagrant@target02
 $ ssh vagrant@target03
@@ -37,13 +37,13 @@ $ ssh vagrant@target03
 
 Nous installons ansible avec les commandes :
 
-```
+```console
 $ sudo apt update && sudo apt install -y ansible
 ```
 
 Nous vérifions la version de ansible :
 
-```
+```console
 $ ansible --version
 ansible 2.10.8
   config file = None
@@ -55,7 +55,7 @@ ansible 2.10.8
 
 Nous testons la bonne configuration avec un ping sur les targets :
 
-```
+```console
 $ ansible all -i target01,target02,target03 -u vagrant -m ping
 target02 | SUCCESS => {
     "ansible_facts": {
@@ -82,20 +82,20 @@ target03 | SUCCESS => {
 
 Nous créons un répertoire de travail :
 
-```
+```console
 $ mkdir ~/monprojet
 ```
 
 Nous créons un fichier de configuration ansible vide :
 
-```
+```console
 $ touch ~/monprojet/ansible.cfg
 ```
 
 Nous nous plaçons dans le dossier et avec la commande qui montre la version de
 ansible, on constate que le fichier est bien pris en compte :
 
-```
+```console
 ~/monprojet$ ansible --version
 ansible 2.10.8
   config file = /home/vagrant/monprojet/ansible.cfg
@@ -107,7 +107,7 @@ ansible 2.10.8
 
 Nous ajoutons dedans les lignes suivantes :
 
-```
+```ini
 [defaults]
 inventory = ./hosts.ini
 log_path = ~/journal/ansible.log
@@ -115,7 +115,7 @@ log_path = ~/journal/ansible.log
 
 Nous créons le fichier hosts.ini :
 
-```
+```console
 $ vim hosts.ini
 
 [testlab]
@@ -126,13 +126,13 @@ target03
 
 Nous créons le dossier qui va acceuillir le fichier de logs :
 
-```
+```console
 $ mkdir -p ~/journal
 ```
 
 Pour tester la journalisation, nous lançons le module de ping :
 
-```
+```console
 $ ansible all -m ping
 $ cat ~/journal/ansible.log
 
@@ -162,7 +162,7 @@ $ cat ~/journal/ansible.log
 Nous testons ensuite avec le groupe que nous avons créé dans le fichier
 hosts.ini
 
-```
+```console
 $ ansible testlab -m ping
 
 target03 | SUCCESS => {
@@ -191,13 +191,13 @@ target01 | SUCCESS => {
 Pour préciser le nom d'utilisateur à utiliser pour la connexion ssh, on ajoute
 dans la config :
 
-```
+```ini
 remote_user = vagrant
 ```
 
 Nous retestons avec le module ping 
 
-```
+```console
 $ ansible all -m ping
 
 target03 | SUCCESS => {
@@ -225,13 +225,13 @@ target02 | SUCCESS => {
 
 Pour passer en sudo, il faut ajouter la ligne suivante dans la config :
 
-```
+```ini
 become=True
 ```
 
 Pour vérifier, on execute la commande whoami :
 
-```
+```console
 $ ansible all -m command -a "whoami" --become
 
 target03 | CHANGED | rc=0 >>
@@ -244,7 +244,7 @@ root
 
 Pour afficher la premiere du fichier /etc/shadow :
 
-```
+```console
 $ ansible all -m command -a "head -n 1 /etc/shadow" --become
 
 target03 | CHANGED | rc=0 >>
@@ -257,7 +257,7 @@ root:*:19769:0:99999:7:::
 
 Pour finir, nous supprimons l'environnement vagrant :
 
-```
+```console
 $ cd ~/formation-ansible/atelier-06
 $ vagrant destroy -f
 ```

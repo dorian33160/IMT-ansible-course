@@ -2,19 +2,19 @@
 
 Nous commençons par ajouter le répository officiel de ansible :  
 
-```
+```console
 $ sudo apt-add-repository ppa:ansible/ansible
 ```
 
 Il faut alors mettre à jour le cache :
 
-```
+```console
 $ sudo apt update
 ```
 
 Nous installons ensuite le paquet :  
 
-```
+```console
 $ sudo apt install ansible
 ```
 

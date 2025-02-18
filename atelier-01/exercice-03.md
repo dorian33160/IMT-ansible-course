@@ -3,25 +3,25 @@
 Comme précisé, il n'est pas nécéssaire d'installer python sur Rocky. Nous
 pouvons directement passer à la suite et créer l'environnemnet Venv :  
 
-```
+```console
 $ python3 -m venv ~/.venv/ansible
 ```
 
 Nous pouvons ensuite lancer le Venv :  
 
-```
+```console
 $ source ~/.venv/ansible/bin/activate
 ```
 Nous mettons alors à jour pip :  
 
-```
+```console
 (ansible) [vagrant@rocky ~]$ pip install --upgrade pip
 ```
 
 On install avec pip ansible :  
 
-```
-pip install ansible
+```console
+(ansible) [vagrant@rocky ~]$ pip install ansible
 ```
 
 Il ne reste plus qu'à vérifier la version de ansible :

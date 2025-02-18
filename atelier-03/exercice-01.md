@@ -2,19 +2,19 @@
 
 Pour commencer nous lançons l'environnement avec la commande :
 
-```
+```console
 $ vagrant up
 ```
 
 Nous nous connectons en ssh à la VM de control :
 
-```
+```console
 $ vagrant ssh control
 ```
 
 Nous vérifions que ansible est bien installé :
 
-```
+```console
 $ type ansible
 ```
 
@@ -30,7 +30,7 @@ Il faut maintenant modifier le fichier hosts :
 
 Nous pouvons tester la connectivité avec la commande suivante :
 
-```
+```console
 $ for HOST in target01 target02 target03 ; do ping -c 1 -q $HOST; done
 
 PING target01.sandbox.lan (192.168.56.20) 56(84) bytes of data.
@@ -52,7 +52,7 @@ rtt min/avg/max/mdev = 0.374/0.374/0.374/0.000 ms
 
 Nous pouvons alors collecter les clés publiques SSH des target :
 
-```
+```console
 $ ssh-keyscan -t rsa target01 target02 target03 >> .ssh/known_hosts
 
 # target01:22 SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.10
@@ -63,7 +63,7 @@ $ ssh-keyscan -t rsa target01 target02 target03 >> .ssh/known_hosts
 Nous pouvons générer une paire de clés SSH pour se connecter sans le mot passe
 :
 
-```
+```console
 $ ssh-keygen
 
 Generating public/private rsa key pair.
@@ -90,7 +90,7 @@ The key's randomart image is:
 
 Il ne reste plus qu'à distribuer la clé publique sur toutes les target :
 
-```
+```console
 vagrant@control:~$ ssh-copy-id vagrant@target01
 /usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/home/vagrant/.ssh/id_rsa.pub"
 /usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
@@ -127,7 +127,7 @@ and check to make sure that only the key(s) you wanted were added.
 
 Nous pouvons ainsi lancer le premier test ansible en faisant un ping :
 
-```
+```console
 $ ansible all -i target01,target02,target03 -u vagrant -m ping
 target03 | SUCCESS => {
     "ansible_facts": {
