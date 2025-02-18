@@ -2,24 +2,24 @@
 
 Nous commençons par mettre à jour le cache APT :  
 
-```bash
+```console
 $ sudo apt update
 ```
 Nous cherchons ensuite le nom du paquet :  
 
-```bash
+```console
 $ sudo apt-cache search --names-only ansible
 ```
 
 Nous installons le paquet :  
 
-```bash
+```console
 $ sudo apt install ansible
 ```
 
 Pour finir, nous vérifions la version de ansible :  
 
-```bash
+```console
 $ ansible --version
 ```
 
