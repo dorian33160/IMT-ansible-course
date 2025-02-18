@@ -212,10 +212,6 @@ Nous devons également ajouter les variables dans le inventory :
 [all:vars]
 mycar=VW
 mybike=BMW
-
-[target02:vars]
-mycar=Mercedes
-mybike=Honda
 ```
 
 Nous exécutons le playbook avec la commande :
