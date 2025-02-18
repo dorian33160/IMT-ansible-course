@@ -71,7 +71,7 @@ Nous modifions le playbook pour qu'il utilise debug et var :
 
 Voici le retour de l'exécution du playbook :
 
-```
+```console
 $ ansible-playbook -i inventory playbooks/kernel-v2.yml 
 
 PLAY [Afficher les informations détaillées du noyau] ********************************************************************************************************************************************************************************************************
@@ -122,7 +122,7 @@ Pour finir, nous écrivons le playbook qui affiche le nombre total de paquets RP
 
 Voici le retour de l'exécution du playbook :
 
-```
+```console
 $ ansible-playbook -i inventory playbooks/packages.yml 
 
 PLAY [Afficher le nombre total de paquets RPM installés] ****************************************************************************************************************************************************************************************************
