@@ -3,7 +3,7 @@
 Nous commençons par écrir le playbook qui affiche les infos détaillées du noyau
 avec le module debug et msg :
 
-```
+```yaml
 # kernel.yml
 ---
 - name: Afficher les informations détaillées du noyau
@@ -20,7 +20,7 @@ avec le module debug et msg :
 
 Voici le retour de l'exécution du playbook :
 
-```
+```console
 $ ansible-playbook -i inventory playbooks/kernel-v1.yml 
 
 PLAY [Afficher les informations détaillées du noyau] ********************************************************************************************************************************************************************************************************
@@ -54,7 +54,7 @@ suse                       : ok=3    changed=1    unreachable=0    failed=0    s
 
 Nous modifions le playbook pour qu'il utilise debug et var :
 
-```
+```yaml
 # kernel.yml
 ---
 - name: Afficher les informations détaillées du noyau
@@ -105,7 +105,7 @@ suse                       : ok=3    changed=1    unreachable=0    failed=0    s
 
 Pour finir, nous écrivons le playbook qui affiche le nombre total de paquets RPM installés sur les hôtes rocky et suse :
 
-```
+```yaml
 # packages.yml
 ---
 - name: Afficher le nombre total de paquets RPM installés

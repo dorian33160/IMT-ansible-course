@@ -2,7 +2,7 @@
 
 Pour commencer nous écrivons le playbook chrony.yaml :
 
-```
+```yaml
 ---
 - name: Configure NTP with chrony
   hosts: redhat
@@ -53,7 +53,7 @@ Pour commencer nous écrivons le playbook chrony.yaml :
 
 Nous pouvons vérifier la syntax du playbook avec la commande suivante :
 
-```
+```console
 $ yamllint chrony.yaml
 
 chrony.yaml
@@ -105,7 +105,7 @@ target03                   : ok=6    changed=2    unreachable=0    failed=0    s
 
 Afin de vérifier l'idempotence, on relance le playbook :
 
-```
+```console
 $ ansible-playbook chrony.yaml
 
 PLAY [Configure NTP with chrony] ****************************************************************************************************************************************************************************************************************************

@@ -4,7 +4,7 @@ Nous commençons par écrire les 3 playbooks.
 
 Voici le premier pour debian :
 
-```
+```yaml
 ---
 - name: Install Apache on Debian
   hosts: debian
@@ -30,7 +30,7 @@ Voici le premier pour debian :
 
 Voici le deuxième pour rocky :
 
-```
+```yaml
 ---
 - name: Install Apache on Rocky Linux
   hosts: rocky
@@ -55,7 +55,7 @@ Voici le deuxième pour rocky :
 
 Voici le dernier pour suse :
 
-```
+```yaml
 ---
 - name: Install Apache on SUSE
   hosts: suse
@@ -80,7 +80,7 @@ Voici le dernier pour suse :
 
 On execute ensuite chaque playbook avec la commande suivante :
 
-```
+```console
 $ ansible-playbook apache-debian.yml
 $ ansible-playbook apache-rocky.yml
 $ ansible-playbook apache-suse.yml
@@ -90,7 +90,7 @@ On obtient les résultats suivant :
 
 Pour debian :
 
-```
+```console
 PLAY [Install Apache on Debian] *****************************************************************************************************************************************************************************************************************************
 
 TASK [Gathering Facts] **************************************************************************************************************************************************************************************************************************************
@@ -115,7 +115,7 @@ Apache web server running on Debian Linux
 
 Pour rocky :
 
-```
+```console
 PLAY [Install Apache on Rocky Linux] ************************************************************************************************************************************************************************************************************************
 
 TASK [Gathering Facts] **************************************************************************************************************************************************************************************************************************************
@@ -140,7 +140,7 @@ Apache web server running on Rocky Linux
 
 Pour suse :
 
-```
+```console
 PLAY [Install Apache on SUSE] *******************************************************************************************************************************************************************************************************************************
 
 TASK [Gathering Facts] **************************************************************************************************************************************************************************************************************************************

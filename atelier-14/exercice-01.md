@@ -2,7 +2,7 @@
 
 Nous commençons par écrire le premier playbook :
 
-```
+```yaml
 # myvars1.yml
 ---
 - name: Afficher voiture et moto préférées
@@ -22,7 +22,7 @@ Nous commençons par écrire le premier playbook :
 
 Pour l'exécuter, nous lançons la commande :
 
-```
+```console
 $ ansible-playbook -i inventory playbooks/myvars1.yml
 
 PLAY [Afficher voiture et moto préférées] *******************************************************************************************************************************************************************************************************************
@@ -61,7 +61,7 @@ target03                   : ok=3    changed=0    unreachable=0    failed=0    s
 ```
 Nous testons ensuite avec l'override de variables :
 
-```
+```console
 $ ansible-playbook -i inventory playbooks/myvars1.yml --extra-vars "mycar=Ferrari mybike=Dcuati"
 
 PLAY [Afficher voiture et moto préférées] *******************************************************************************************************************************************************************************************************************
@@ -101,7 +101,29 @@ target03                   : ok=3    changed=0    unreachable=0    failed=0    s
 
 Nous écrivons le deuxieme playbook :
 
+```yaml
+# myvars2.yml
+---
+- name: Afficher voiture et moto préférées avec set_fact
+  hosts: all
+  tasks:
+    - name: Définir les variables mycar et mybike
+      set_fact:
+        mycar: "Toyota"
+        mybike: "Yamaha"
+
+    - name: Afficher la voiture préférée
+      debug:
+        msg: "Ma voiture préférée est {{ mycar }}"
+
+    - name: Afficher la moto préférée
+      debug:
+        msg: "Ma moto préférée est {{ mybike }}"
 ```
+
+Pour l'exécuter, nous lançons la commande :
+
+```console
 $ ansible-playbook -i inventory playbooks/myvars2.yml
 
 PLAY [Afficher voiture et moto préférées avec set_fact] *****************************************************************************************************************************************************************************************************
@@ -146,7 +168,7 @@ target03                   : ok=4    changed=0    unreachable=0    failed=0    s
 
 Avec l'override des variables :
 
-```
+```console
 $ ansible-playbook -i inventory playbooks/myvars2.yml --extra-vars "mycar=Ferrari mybike=Ducati"
 
 PLAY [Afficher voiture et moto préférées avec set_fact] *****************************************************************************************************************************************************************************************************
@@ -191,7 +213,7 @@ target03                   : ok=4    changed=0    unreachable=0    failed=0    s
 
 Nous écrivons le troisième playbook :
 
-```
+```yaml
 # myvars3.yml
 ---
 - name: Afficher voiture et moto préférées sans les définir
@@ -208,7 +230,7 @@ Nous écrivons le troisième playbook :
 
 Nous devons également ajouter les variables dans le inventory :
 
-```
+```ini
 [all:vars]
 mycar=VW
 mybike=BMW
@@ -216,7 +238,7 @@ mybike=BMW
 
 Nous exécutons le playbook avec la commande :
 
-```
+```console
 $ ansible-playbook -i inventory playbooks/myvars3.yml
 
 PLAY [Afficher voiture et moto préférées sans les définir] **************************************************************************************************************************************************************************************************
@@ -256,7 +278,7 @@ target03                   : ok=3    changed=0    unreachable=0    failed=0    s
 
 Nous écrivons le dernier playbook :
 
-```
+```yaml
 # display_user.yml
 ---
 - name: Afficher utilisateur et mot de passe
@@ -280,7 +302,7 @@ Nous écrivons le dernier playbook :
 
 Nous l'exécutons avec la commande :
 
-```
+```console
 $ ansible-playbook -i inventory playbooks/display_user.yml
 
 Entrez le nom d'utilisateur [microlinux]: test
